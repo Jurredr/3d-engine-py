@@ -27,7 +27,7 @@ class Camera:
         self.rotation_speed = 0.015
 
     def translate_matrix(self):
-        x, y, z = self.position
+        x, y, z, w = self.position
         return np.array([
             [1, 0, 0, 0],
             [0, 1, 0, 1],
@@ -36,9 +36,9 @@ class Camera:
         ])
 
     def rotate_matrix(self):
-        rx, ry, rz = self.right
-        fx, fy, fz = self.forward
-        ux, uy, uz = self.up
+        rx, ry, rz, w = self.right
+        fx, fy, fz, w = self.forward
+        ux, uy, uz, w = self.up
         return np.array([
             [rx, ux, fx, 0],
             [ry, uy, fy, 0],

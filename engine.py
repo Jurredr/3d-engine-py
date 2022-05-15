@@ -1,5 +1,8 @@
+import math
 import pygame as pg
+from camera import Camera
 from object_3d import Object3D
+from projection import Projection
 
 
 class Engine:
@@ -16,7 +19,14 @@ class Engine:
         self.create_objects()
 
     def create_objects(self):
+        # Camera and projection
+        self.camera = Camera(self, [0.5, 1, -4])
+        self.projection = Projection(self)
+
+        # Make an object and store it
         self.objects = [Object3D(self)]
+        self.objects[0].translate([0.2, 0.4, 0.2])
+        self.objects[0].rotate_y(math.pi / 6)
 
     def start(self) -> None:
         while True:
@@ -32,6 +42,8 @@ class Engine:
 
     def draw(self):
         self.screen.fill(pg.Color('gray69'))
+        for object in self.objects:
+            object.draw()
 
 
 if __name__ == '__main__':

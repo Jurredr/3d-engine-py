@@ -9,14 +9,12 @@ def any(arr, a, b):
 
 
 class Object3D:
-    def __init__(self, render) -> None:
+    def __init__(self, render, vertices, faces) -> None:
         self.render = render
 
         # Vertices and faces (vertex indices)
-        self.vertices = np.array([(0, 0, 0, 1), (0, 1, 0, 1), (1, 1, 0, 1), (
-            1, 0, 0, 1), (0, 0, 1, 1), (0, 1, 1, 1), (1, 1, 1, 1), (1, 0, 1, 1)])
-        self.faces = np.array([(0, 1, 2, 3), (4, 5, 6, 7),
-                              (0, 4, 5, 1), (2, 3, 7, 6), (1, 2, 6, 5), (0, 3, 7, 4)])
+        self.vertices = np.array([np.array(v) for v in vertices])
+        self.faces = np.array([np.array(face) for face in faces])
 
     def draw(self):
         self.screen_projection()
@@ -28,7 +26,7 @@ class Object3D:
 
         # Normalize and cut off coordinates outside view
         vertices /= vertices[:, -1].reshape(-1, 1)
-        vertices[(vertices > 1) | (vertices < -1)] = 0
+        vertices[(vertices > 2) | (vertices < -2)] = 0
         vertices = vertices @ self.render.projection.to_screen_matrix
         vertices = vertices[:, :2]
 

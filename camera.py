@@ -71,9 +71,9 @@ class Camera:
             self.position += self.forward * self.moving_speed
         if key[pg.K_s]:
             self.position -= self.forward * self.moving_speed
-        if key[pg.K_q]:
+        if key[pg.K_SPACE]:
             self.position += self.up * self.moving_speed
-        if key[pg.K_e]:
+        if key[pg.K_LSHIFT]:
             self.position -= self.up * self.moving_speed
 
         if key[pg.K_LEFT]:

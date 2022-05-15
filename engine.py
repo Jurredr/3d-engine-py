@@ -24,9 +24,23 @@ class Engine:
         self.projection = Projection(self)
 
         # Make an object and store it
-        self.objects = [Object3D(self)]
+        self.objects = [Object3D(self, [[0, 0, 0, 1], [0, 1, 0, 1], [1, 1, 0, 1], [
+            1, 0, 0, 1], [0, 0, 1, 1], [0, 1, 1, 1], [1, 1, 1, 1], [1, 0, 1, 1]], [[0, 1, 2, 3], [4, 5, 6, 7],
+                                                                                   [0, 4, 5, 1], [2, 3, 7, 6], [1, 2, 6, 5], [0, 3, 7, 4]])]
         self.objects[0].translate([0.2, 0.4, 0.2])
         self.objects[0].rotate_y(math.pi / 6)
+
+    def get_object_from_obj(self, filename):
+        vertices, faces = [], []
+        with open(filename) as f:
+            for line in f:
+                if line.startswith('v '):
+                    vertices.append([float(i) for i in line.split()[1:]] + [1])
+                elif line.startswith('f'):
+                    faces_ = line.split()[1:]
+                    faces.append(
+                        [int(face_.split('/')[0]) - 1 for face_ in faces_])
+        return Object3D(self, vertices, faces)
 
     def start(self) -> None:
         while True:

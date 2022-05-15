@@ -3,7 +3,7 @@ import pygame as pg
 
 class Engine:
     def __init__(self) -> None:
-        # Setup PyGame
+        # Set up PyGame
         pg.init()
         self.RES = self.WIDTH, self.HEIGHT = 1600, 900
         self.H_WIDTH, self.H_HEIGHT = self.WIDTH // 2, self.HEIGHT // 2

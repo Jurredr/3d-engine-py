@@ -23,7 +23,7 @@ class Camera:
         self.far_plane = 100
 
         # Camera control speeds
-        self.moving_speed = 0.3
+        self.moving_speed = 0.15
         self.rotation_speed = 0.015
 
     def translate_matrix(self):
@@ -46,5 +46,41 @@ class Camera:
             [0, 0, 0, 1]
         ])
 
+    def camera_yaw(self, angle):
+        rotate = rotate_y(angle)
+        self.forward = self.forward @ rotate
+        self.right = self.right @ rotate
+        self.up = self.up @ rotate
+
+    def camera_pitch(self, angle):
+        rotate = rotate_x(angle)
+        self.forward = self.forward @ rotate
+        self.right = self.right @ rotate
+        self.up = self.up @ rotate
+
     def camera_matrix(self):
         return self.translate_matrix() @ self.rotate_matrix()
+
+    def control(self):
+        key = pg.key.get_pressed()
+        if key[pg.K_a]:
+            self.position -= self.right * self.moving_speed
+        if key[pg.K_d]:
+            self.position += self.right * self.moving_speed
+        if key[pg.K_w]:
+            self.position += self.forward * self.moving_speed
+        if key[pg.K_s]:
+            self.position -= self.forward * self.moving_speed
+        if key[pg.K_q]:
+            self.position += self.up * self.moving_speed
+        if key[pg.K_e]:
+            self.position -= self.up * self.moving_speed
+
+        if key[pg.K_LEFT]:
+            self.camera_yaw(-self.rotation_speed)
+        if key[pg.K_RIGHT]:
+            self.camera_yaw(self.rotation_speed)
+        if key[pg.K_UP]:
+            self.camera_pitch(-self.rotation_speed)
+        if key[pg.K_DOWN]:
+            self.camera_pitch(self.rotation_speed)

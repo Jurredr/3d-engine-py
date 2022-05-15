@@ -1,4 +1,4 @@
-import pygame as py
+import pygame as pg
 from matrix_operations import *
 from numba import njit
 
@@ -36,13 +36,13 @@ class Object3D:
         for face in self.faces:
             polygon = vertices[face]
             if not any(polygon, self.render.H_WIDTH, self.render.H_HEIGHT):
-                py.draw.polygon(self.render.screen,
-                                py.Color('orange'), polygon, 3)
+                pg.draw.polygon(self.render.screen,
+                                pg.Color('orange'), polygon, 3)
 
         for vertex in vertices:
             if not any(vertex, self.render.H_WIDTH, self.render.H_HEIGHT):
-                py.draw.circle(self.render.screen,
-                               py.Color('white'), vertex, 6)
+                pg.draw.circle(self.render.screen,
+                               pg.Color('white'), vertex, 6)
 
     def translate(self, pos):
         self.vertices = self.vertices @ translate(pos)

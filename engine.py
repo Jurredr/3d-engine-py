@@ -30,8 +30,9 @@ class Engine:
 
     def start(self) -> None:
         while True:
-            # Keep drawing
+            # Keep drawing and check for camera input
             self.draw()
+            self.camera.control()
             [exit() for i in pg.event.get() if i.type == pg.QUIT]
 
             # Display FPS and title

@@ -1,4 +1,5 @@
 import pygame as pg
+from object_3d import Object3D
 
 
 class Engine:
@@ -10,6 +11,12 @@ class Engine:
         self.FPS = 60
         self.screen = pg.display.set_mode(self.RES)
         self.clock = pg.time.Clock()
+
+        # Create objects
+        self.create_objects()
+
+    def create_objects(self):
+        self.objects = [Object3D(self)]
 
     def start(self) -> None:
         while True:
